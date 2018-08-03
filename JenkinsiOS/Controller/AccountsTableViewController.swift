@@ -56,15 +56,22 @@ class AccountsTableViewController: BaseTableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let indexPath = sender as? IndexPath, let dest = segue.destination as? JobsTableViewController, segue.identifier == Constants.Identifiers.showJobsSegue{
             prepare(viewController: dest, indexPath: indexPath)
+            
+            navigationController?.isToolbarHidden = true
         }
         else if segue.identifier == Constants.Identifiers.editAccountSegue, let dest = segue.destination as? AddAccountTableViewController, let indexPath = sender as? IndexPath{
             prepare(viewController: dest, indexPath: indexPath)
+            
+            navigationController?.isToolbarHidden = UIDevice.current.userInterfaceIdiom == .phone
         }
         else if segue.identifier == Constants.Identifiers.showBuildSegue || segue.identifier == Constants.Identifiers.showJobSegue || segue.identifier == Constants.Identifiers.showJobsSegue,
                 let favoritableAndFavorite = sender as? (Favoratible, Favorite){
             prepare(favoritableViewController: segue.destination, for: favoritableAndFavorite)
+            
+            navigationController?.isToolbarHidden = true
         }
-        navigationController?.isToolbarHidden = true
+        
+        
     }
     
     fileprivate func prepare(viewController: UIViewController, indexPath: IndexPath){
